@@ -2,7 +2,7 @@
 
 API RESTfull desenvolvida como teste de conhecimento. Tecnologias envolvidas: PHP 8x, Laravel 8, laravel/passport, Migrations, Seeders, Factories, MySql e ORM eloquent. Você pode clonar esse repositório e seguir os passos para testá-la, avaliá-la ou melhorá-la.
 
-__Apesar de ser uma API que trabalhe personagens e suas aldeias, as tecnologias Seeder e Factory colocam dados desconexos com o tema central, visto que utilizar a LIB Faker para preenchimento em massa (porém de forma organizada).__
+__Apesar de ser uma API que trabalhe personagens e suas aldeias, as tecnologias Seeder e Factory colocam dados desconexos com o tema central, visto que utilizam a LIB Faker para preenchimento em massa (porém de forma organizada).__
 
 - Antes de iniciarmos, seria interessante estar bem familiarizado com as tecnologias supracitadas;
 
@@ -57,8 +57,10 @@ Nessa rota, os dados do suário são processados e salvos seu nome, e-mail e uma
 
 Nessa rota, deve ser passados dados em formulario com os nomes "name", "email", "password" e "password_confirmation". 
 
-- Em seguida, podemos fazer o login manualmente com os os dados cadastrados ou gerados pela API do Facebook. Para tanto, é preciso passar dados em formulario com os nomes "email" e "password". A __ROTA__ é do tipo POST:
+- Em seguida, podemos fazer o login manualmente com os dados cadastrados ou gerados pela API do Facebook. Para tanto, é preciso passar dados em formulario com os nomes "email" e "password". A __ROTA__ é do tipo POST:
 >localhost:8000/api/login
+
+Logo após logar com sucesso, a API retornará um token de acesso. Copie-o, pois será fundamental para acessar as rotas restritas.
 
 ### Manipulando as Rotas restritas
 
@@ -66,19 +68,21 @@ Para trabalhar com as rotas retritas, depois de logado, recomendo que use softwa
 
 ### aldeias
 
+Antes de fazer as requisições para as rotas, lembre de abrir a aba __AUTH__, de __Autenticação__, do softwre de requisições escolhido. O tipo de __TOKEN__ deve ser Bearer Token. Apenas cole o Token no local apropriado e implemente as rotas.
+
 - __Rota GET__. Espera-se que retorne todas as aldeias e seus dados cadastrados, no formato JSON;
 >localhost:8000/api/aldeias
 
 - __Rota GET__, __parametrizada__. Espera-se que retorne a aldeia especificada pelo id na forma de parametro, no formato JSON;
 >localhost:8000/api/aldeias/{id}
 
-- __Rota POST__. Para usar essa rota, é necessário estar possuir um usuário e estar logado, de forma que retorne o AcessToken retornado e coloque no cabeçalho de autenticação. No caso do Insomnia é Auth, do tipo Bearer. Espera-se que os dados colocados sejam iguais aos dos campos da tabela (" name ", no caso). Se tudo der certo, será retornado o JSON dos dados cadastrados e o Status Code competente;
+- __Rota POST__. Espera-se que os dados colocados sejam iguais aos dos campos da tabela (" name ", no caso). Se tudo der certo, será retornado o JSON dos dados cadastrados e o Status Code competente;
 >localhost:8000/api/aldeias
 
-- __Rota PUT__. Para usar essa rota, é necessário estar possuir um usuário e estar logado, de forma que retorne o AcessToken retornado e coloque no cabeçalho de autenticação. No caso do Insomnia é Auth, do tipo Bearer. Espera-se que os dados colocados sejam iguais aos dos campos da tabela (" name ", no caso) e que seja passado o ID de identificação do registro. Se tudo der certo, será retornado o JSON dos dados __atualizados__ no cadastrado e o Status Code competente;
+- __Rota PUT__. Espera-se que os dados colocados sejam iguais aos dos campos da tabela (" name ", no caso) e que seja passado o ID de identificação do registro. Se tudo der certo, será retornado o JSON dos dados __atualizados__ no cadastrado e o Status Code competente;
 >localhost:8000/api/aldeias/{id}
 
-- __Rota DELETE__. Para usar essa rota, é necessário estar possuir um usuário e estar logado, de forma que retorne o AcessToken retornado e coloque no cabeçalho de autenticação. No caso do Insomnia é Auth, do tipo Bearer. Espera-se que seja passado o ID de identificação do registro. Se tudo der certo, será retornado uma mensagem informando que o registro foi excluído. Você pode conferir se realmente foi excluído o registro utilizando a rota GET;
+- __Rota DELETE__. Espera-se que seja passado o ID de identificação do registro. Quando deletar um registro de aldeias, todos os personagens que tenham Foreign Key atribuída a esse registro, serão deletados Se tudo der certo, será retornado uma mensagem informando que o registro foi excluído. Você pode conferir se realmente foi excluído o registro utilizando a rota GET acima;
 >localhost:8000/api/aldeias/{id}
 
 ### personagens
@@ -89,11 +93,11 @@ Para trabalhar com as rotas retritas, depois de logado, recomendo que use softwa
 - __Rota GET__, __parametrizada__. Espera-se que retorne o personagem especificado pelo ID na forma de parametro, no formato JSON;
 >localhost:8000/api/personagens/{id}
 
-- __Rota POST__. Para usar essa rota, é necessário estar possuir um usuário e estar logado, de forma que retorne o AcessToken retornado e coloque no cabeçalho de autenticação. No caso do Insomnia é Auth, do tipo Bearer. Espera-se que os dados colocados sejam iguais aos dos campos da tabela (" name " e " fk_aldeia_id ", no caso). Se tudo der certo, será retornado o JSON dos dados cadastrados e o Status Code competente;
+- __Rota POST__. Espera-se que os dados colocados sejam iguais aos dos campos da tabela (" name " e " fk_aldeia_id ", no caso). Se tudo der certo, será retornado o JSON dos dados cadastrados e o Status Code competente;
 >localhost:8000/api/personagens
 
-- __Rota PUT__. Para usar essa rota, é necessário estar possuir um usuário e estar logado, de forma que retorne o AcessToken retornado e coloque no cabeçalho de autenticação. No caso do Insomnia é Auth, do tipo Bearer. Espera-se que os dados colocados sejam iguais aos dos campos da tabela (" name ", no caso) e que seja passado o ID de identificação do registro. Se tudo der certo, será retornado o JSON dos dados __atualizados__ no cadastrado e o Status Code competente;
+- __Rota PUT__. Espera-se que os dados colocados sejam iguais aos dos campos da tabela (" name ", no caso) e que seja passado o ID de identificação do registro. Se tudo der certo, será retornado o JSON dos dados __atualizados__ no cadastrado e o Status Code competente;
 >localhost:8000/api/personagens/{id}
 
-- __Rota DELETE__. Para usar essa rota, é necessário estar possuir um usuário e estar logado, de forma que retorne o AcessToken retornado e coloque no cabeçalho de autenticação. No caso do Insomnia é Auth, do tipo Bearer. Espera-se que seja passado o ID de identificação do registro. Se tudo der certo, será retornado uma mensagem informando que o registro foi excluído. Você pode conferir se realmente foi excluído o registro utilizando a rota GET;
+- __Rota DELETE__. Espera-se que seja passado o ID de identificação do registro. Se tudo der certo, será retornado uma mensagem informando que o registro foi excluído. Você pode conferir se realmente foi excluído o registro utilizando a rota GET;
 >localhost:8000/api/personagens/{id}

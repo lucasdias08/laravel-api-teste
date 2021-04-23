@@ -64,9 +64,8 @@ class PersonagemController extends Controller
      */
 
     public function update(Request $request, $id){
-        $personagem = Personagem::find($id);
+        $personagem = Personagem::where('id', $id)->update($request->all());
 
-        $personagem->update($request->all());
         return $personagem;
     }
     /**

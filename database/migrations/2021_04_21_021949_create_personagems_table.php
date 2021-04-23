@@ -15,12 +15,12 @@ class CreatePersonagemsTable extends Migration
     {
         Schema::create('personagems', function (Blueprint $table) {
             $table->id();
-            $table->string("name", 30);
+            $table->string("name")->nullable();;
             $table->timestamps();
             $table->unsignedBigInteger("fk_aldeia_id");
 
             //fk
-            $table->foreign("fk_aldeia_id")->references("id")->on("aldeias");
+            $table->foreign("fk_aldeia_id")->references("id")->on("aldeias")->onDelete('cascade');
         });
     }
 

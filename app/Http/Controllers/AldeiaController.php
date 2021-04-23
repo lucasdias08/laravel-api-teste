@@ -66,14 +66,15 @@ class AldeiaController extends Controller
     /**
      * Update the specified resource in storage.
      *
+     * @param  \Illuminate\Http\$id
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Aldeia  $aldeia
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id){
-        $aldeia = Aldeia::find($id);
         
-        $aldeia->update($request->all());
+        $aldeia = Aldeia::where('id', $id)->update($request->all());
+
         return $aldeia;
     }
 
