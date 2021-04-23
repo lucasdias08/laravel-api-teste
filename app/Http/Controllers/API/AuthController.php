@@ -39,4 +39,27 @@ class AuthController extends Controller{
         return response(['user' => auth()->user(), 'access_token' => $accessToken]);
 
     }
+
+    public function registerWithFacebook($user){
+
+        $arr_user = [
+            "name" => $user->getName(),
+            "email" => $user->getEmail(),
+            "password" => $user->getId()
+        ];
+
+        var_dump($arr_user);
+
+        $arr_user['password'] = bcrypt($arr_user['password']);
+        $user2 = User::create($arr_user);
+        $accessToken = $user2->createToken('authToken')->accessToken;
+
+        echo "<hr>";
+
+        var_dump($accessToken);
+
+        //return response([ 'user' => $json_user, 'access_token' => $accessToken]);
+
+    }
+    
 }

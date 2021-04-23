@@ -1,62 +1,99 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Primeiras considerações
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+API RESTfull desenvolvida como teste de conhecimento. Tecnologias envolvidas: PHP 8x, Laravel 8, laravel/passport, Migrations, Seeders, Factories, MySql e ORM eloquent. Você pode clonar esse repositório e seguir os passos para testá-la, avaliá-la ou melhorá-la.
 
-## About Laravel
+__Apesar de ser uma API que trabalhe personagens e suas aldeias, as tecnologias Seeder e Factory colocam dados desconexos com o tema central, visto que utilizar a LIB Faker para preenchimento em massa (porém de forma organizada).__
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Antes de iniciarmos, seria interessante estar bem familiarizado com as tecnologias supracitadas;
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Também é importante que os comandos oriundos do PHP estejam a nível global do Sistema Operacional (setar variável de ambiente "PATH" do sistema com o endereço do PHP no HD);
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Comentei todos os comandos do " .gitignore " para resguardar seu tempo de procurar pacotes. Não será preciso nenhuma configuração senão no banco de dados MySql, que será bem simples e intuitivo
 
-## Learning Laravel
+## Preparando ambiente
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- __1.__ Clone esse repositório e o abra em seu editor de texto preferido, caso queira;
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- __2.__ Crie um Banco de dados MySql com o nome "naruto". Exatamente dessa forma;
 
-## Laravel Sponsors
+- __3.__ Navegue até o arquivo " .env " na raíz do projeto. Lá você pode alterar o nome do banco(DB_DATABASE), do usuário(DB_USERNAME) e a senha de acesso(DB_PASSWORD). O primeiro é opcional, os demais fica ao seu critério;
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+- __4.__ Navegue até a raíz do projeto com seu terminal (CMD, PowerShell, etc);
 
-### Premium Partners
+- __5.__ Execute o comando: 
+>php artisan migrate
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
+- __6.__ Em seguida, execute o comando: 
+>php artisan db:seed
 
-## Contributing
+- __7.__ Em seguida, execute o comando: 
+>php artisan passport:install
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- __8.__ Por fim, execute o comando: 
+>php artisan serve
 
-## Code of Conduct
+### Justificativas
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- O comando do item 5 executa as Migrations, que por sua vez criam as tabelas. É importante que esse seja o primeiro passo depois de criar o Banco de Dados;
+- O comando do item 6 executa as Seeders + Factories, que por sua vez criam registros para as tabelas. É importante que esse seja o primeiro passo depois de criar as tabelas via Migrations;
+- O comando do item 7 instala as credenciais do passport no banco de dados que está sendo utilizado pelo ORM do Laravel (Eloquent). É importante que esse seja o primeiro passo depois de criar os registros do Banco de Dados;
+- O comando do item 8 executa o servidor HTTP embutido do laravel. Apesar de ser possível utilizar outros Servidores Web, recomendo que faça como dito.
 
-## Security Vulnerabilities
+# Manipulando a API
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Rotas
 
-## License
+### Obtendo acesso
+- Para iniciar, recomendo que utilize seu navegador para a seguinte __rota__, caso queira logar com seu facebook:
+>localhost:8000/api/login/facebook
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Essa rota irá redirecionar, caso logado com sucesso, para a rota
+>localhost:8000/api/login/facebook/callback
+
+Nessa rota, os dados do suário são processados e salvos seu nome, e-mail e uma senha numérica gerada pela API do facebook. Com esses dados, o usuário pode logar para utilizar as demais rotas.
+
+- Caso queira registrar manualmente, pode acessar a seguinte __rota__ do tipo POST: 
+>localhost:8000/api/register
+
+Nessa rota, deve ser passados dados em formulario com os nomes "name", "email", "password" e "password_confirmation". 
+
+- Em seguida, podemos fazer o login manualmente com os os dados cadastrados ou gerados pela API do Facebook. Para tanto, é preciso passar dados em formulario com os nomes "email" e "password". A __ROTA__ é do tipo POST:
+>localhost:8000/api/login
+
+### Manipulando as Rotas restritas
+
+Para trabalhar com as rotas retritas, depois de logado, recomendo que use softwares de simulação clientHttp, como o Insomnia ou o Postman.
+
+### aldeias
+
+- __Rota GET__. Espera-se que retorne todas as aldeias e seus dados cadastrados, no formato JSON;
+>localhost:8000/api/aldeias
+
+- __Rota GET__, __parametrizada__. Espera-se que retorne a aldeia especificada pelo id na forma de parametro, no formato JSON;
+>localhost:8000/api/aldeias/{id}
+
+- __Rota POST__. Para usar essa rota, é necessário estar possuir um usuário e estar logado, de forma que retorne o AcessToken retornado e coloque no cabeçalho de autenticação. No caso do Insomnia é Auth, do tipo Bearer. Espera-se que os dados colocados sejam iguais aos dos campos da tabela (" name ", no caso). Se tudo der certo, será retornado o JSON dos dados cadastrados e o Status Code competente;
+>localhost:8000/api/aldeias
+
+- __Rota PUT__. Para usar essa rota, é necessário estar possuir um usuário e estar logado, de forma que retorne o AcessToken retornado e coloque no cabeçalho de autenticação. No caso do Insomnia é Auth, do tipo Bearer. Espera-se que os dados colocados sejam iguais aos dos campos da tabela (" name ", no caso) e que seja passado o ID de identificação do registro. Se tudo der certo, será retornado o JSON dos dados __atualizados__ no cadastrado e o Status Code competente;
+>localhost:8000/api/aldeias/{id}
+
+- __Rota DELETE__. Para usar essa rota, é necessário estar possuir um usuário e estar logado, de forma que retorne o AcessToken retornado e coloque no cabeçalho de autenticação. No caso do Insomnia é Auth, do tipo Bearer. Espera-se que seja passado o ID de identificação do registro. Se tudo der certo, será retornado uma mensagem informando que o registro foi excluído. Você pode conferir se realmente foi excluído o registro utilizando a rota GET;
+>localhost:8000/api/aldeias/{id}
+
+### personagens
+
+- __Rota GET__. Espera-se que retorne todas os personagens cadastrados, no formato JSON;
+>localhost:8000/api/personagens
+
+- __Rota GET__, __parametrizada__. Espera-se que retorne o personagem especificado pelo ID na forma de parametro, no formato JSON;
+>localhost:8000/api/personagens/{id}
+
+- __Rota POST__. Para usar essa rota, é necessário estar possuir um usuário e estar logado, de forma que retorne o AcessToken retornado e coloque no cabeçalho de autenticação. No caso do Insomnia é Auth, do tipo Bearer. Espera-se que os dados colocados sejam iguais aos dos campos da tabela (" name " e " fk_aldeia_id ", no caso). Se tudo der certo, será retornado o JSON dos dados cadastrados e o Status Code competente;
+>localhost:8000/api/personagens
+
+- __Rota PUT__. Para usar essa rota, é necessário estar possuir um usuário e estar logado, de forma que retorne o AcessToken retornado e coloque no cabeçalho de autenticação. No caso do Insomnia é Auth, do tipo Bearer. Espera-se que os dados colocados sejam iguais aos dos campos da tabela (" name ", no caso) e que seja passado o ID de identificação do registro. Se tudo der certo, será retornado o JSON dos dados __atualizados__ no cadastrado e o Status Code competente;
+>localhost:8000/api/personagens/{id}
+
+- __Rota DELETE__. Para usar essa rota, é necessário estar possuir um usuário e estar logado, de forma que retorne o AcessToken retornado e coloque no cabeçalho de autenticação. No caso do Insomnia é Auth, do tipo Bearer. Espera-se que seja passado o ID de identificação do registro. Se tudo der certo, será retornado uma mensagem informando que o registro foi excluído. Você pode conferir se realmente foi excluído o registro utilizando a rota GET;
+>localhost:8000/api/personagens/{id}
